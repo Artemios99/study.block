@@ -36,7 +36,11 @@ function endFocusSession() {
 
     addFocusSeconds(elapsedSeconds);
 
-    chrome.storage.local.set({ focusActive: false, endTime: null, startTime: null });
+    chrome.storage.local.set({
+      focusActive: false,
+      endTime: null,
+      startTime: null,
+    });
     chrome.alarms.clear("focusEnd");
   });
 }
@@ -46,7 +50,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "start") {
     const startTime = Date.now();
     const endTime = startTime + message.minutes * 60 * 1000;
-    chrome.storage.local.set({ focusActive: true, startTime: startTime, endTime: endTime });
+    chrome.storage.local.set({
+      focusActive: true,
+      startTime: startTime,
+      endTime: endTime,
+    });
     chrome.alarms.create("focusEnd", { when: endTime });
   }
 
@@ -66,14 +74,17 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (!changeInfo.url) return;
 
-  chrome.storage.local.get(["focusActive", "endTime", "blockedSites"], (data) => {
-    const stillActive = data.focusActive && data.endTime > Date.now();
-    const blockedSites = data.blockedSites || [];
+  chrome.storage.local.get(
+    ["focusActive", "endTime", "blockedSites"],
+    (data) => {
+      const stillActive = data.focusActive && data.endTime > Date.now();
+      const blockedSites = data.blockedSites || [];
 
-    if (stillActive && isBlockedUrl(changeInfo.url, blockedSites)) {
-      chrome.tabs.update(tabId, { url: "blocked.html" });
-    } else if (data.focusActive && data.endTime <= Date.now()) {
-      endFocusSession();
-    }
-  });
+      if (stillActive && isBlockedUrl(changeInfo.url, blockedSites)) {
+        chrome.tabs.update(tabId, { url: "blocked.html" });
+      } else if (data.focusActive && data.endTime <= Date.now()) {
+        endFocusSession();
+      }
+    },
+  );
 });

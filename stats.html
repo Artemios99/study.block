@@ -1,44 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Study Blocker — Stats</title>
-  <link rel="stylesheet" href="stats.css">
-</head>
-<body>
-      <div class="container">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Study Blocker — Stats</title>
+    <link rel="stylesheet" href="stats.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>📊 Your Focus Stats</h1>
 
- <h1>📊 Your Focus Stats</h1>
+      <div class="chart-card">
+        <div class="chart-title">Last 7 Days</div>
+        <div id="chart" class="chart"></div>
+      </div>
 
-  <div class="chart-card">
-    <div class="chart-title">Last 7 Days</div>
-    <div id="chart" class="chart"></div>
-  </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">☀️</div>
+          <div class="stat-label">Today</div>
+          <div class="stat-value" id="today-value">0m</div>
+        </div>
 
-  <div class="stats-grid">
-   <div class="stat-card">
-      <div class="stat-icon">☀️</div>
-      <div class="stat-label">Today</div>
-      <div class="stat-value" id="today-value">0m</div>
+        <div class="stat-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-label">This Week</div>
+          <div class="stat-value" id="week-value">0m</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">🗓️</div>
+          <div class="stat-label">This Month</div>
+          <div class="stat-value" id="month-value">0m</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-label">All Time</div>
+          <div class="stat-value" id="alltime-value">0m</div>
+        </div>
+      </div>
     </div>
 
-    <div class="stat-card">
-      <div class="stat-icon">📅</div>
-      <div class="stat-label">This Week</div>
-      <div class="stat-value" id="week-value">0m</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-icon">🗓️</div>
-      <div class="stat-label">This Month</div>
-      <div class="stat-value" id="month-value">0m</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-icon">🏆</div>
-      <div class="stat-label">All Time</div>
-      <div class="stat-value" id="alltime-value">0m</div>
-    </div>
-  <script src="stats.js"></script>
-</body>
+    <script src="stats.js"></script>
+  </body>
 </html>
