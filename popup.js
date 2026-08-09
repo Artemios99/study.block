@@ -9,6 +9,18 @@ const siteInput = document.getElementById("site-input");
 const addSiteBtn = document.getElementById("add-site-btn");
 const sitesList = document.getElementById("sites-list");
 const limitMsg = document.getElementById("limit-msg");
+const suggestionsBox = document.getElementById("suggestions-box");
+
+const SITE_SUGGESTIONS = [
+  "youtube.com",
+  "instagram.com",
+  "tiktok.com",
+  "reddit.com",
+  "facebook.com",
+  "twitter.com",
+  "x.com",
+  "netflix.com"
+];
 
 const MAX_FREE_SITES = 2;
 
@@ -40,6 +52,37 @@ function renderSites(sites) {
 
   limitMsg.style.display = sites.length >= MAX_FREE_SITES ? "block" : "none";
   addSiteBtn.disabled = sites.length >= MAX_FREE_SITES;
+}
+
+function showSuggestions(query) {
+  suggestionsBox.innerHTML = "";
+
+  if (!query) {
+    suggestionsBox.classList.add("hidden");
+    return;
+  }
+
+  const matches = SITE_SUGGESTIONS.filter((site) =>
+    site.includes(query.toLowerCase())
+  );
+
+  if (matches.length === 0) {
+    suggestionsBox.classList.add("hidden");
+    return;
+  }
+
+  matches.forEach((site) => {
+    const li = document.createElement("li");
+    li.textContent = site;
+    li.addEventListener("click", () => {
+      siteInput.value = site;
+      suggestionsBox.classList.add("hidden");
+      siteInput.focus();
+    });
+    suggestionsBox.appendChild(li);
+  });
+
+  suggestionsBox.classList.remove("hidden");
 }
 
 // Αφαιρεί ένα site από τη λίστα
@@ -116,4 +159,18 @@ addSiteBtn.addEventListener("click", () => {
       siteInput.value = "";
     });
   });
+});
+
+siteInput.addEventListener("input", () => {
+  showSuggestions(siteInput.value.trim());
+});
+
+document.getElementById("stats-link").addEventListener("click", () => {
+  chrome.tabs.create({ url: chrome.runtime.getURL("stats.html") });
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".input-wrapper")) {
+    suggestionsBox.classList.add("hidden");
+  }
 });

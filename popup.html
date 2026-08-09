@@ -13,17 +13,10 @@
  <div id="setup-view">
   <div id="sites-section">
     <label for="site-input">Block this site:</label>
-<input type="text" id="site-input" list="site-suggestions" placeholder="e.g. youtube.com">
-<datalist id="site-suggestions">
-  <option value="youtube.com">
-  <option value="instagram.com">
-  <option value="tiktok.com">
-  <option value="reddit.com">
-  <option value="facebook.com">
-  <option value="twitter.com">
-  <option value="x.com">
-  <option value="netflix.com">
-</datalist>
+<div class="input-wrapper">
+  <input type="text" id="site-input" placeholder="e.g. youtube.com" autocomplete="off">
+  <ul id="suggestions-box" class="hidden"></ul>
+</div>
     <button id="add-site-btn">Add</button>
 
     <ul id="sites-list"></ul>
@@ -43,7 +36,7 @@
     <div id="timer" style="font-size: 28px; font-weight: bold;">00:00</div>
     <button id="stop-btn">Stop</button>
   </div>
-
+<div id="stats-link">📊 View Stats</div>
   <script src="popup.js"></script>
 </body>
 </html>
